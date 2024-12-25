@@ -77,7 +77,7 @@ jobs:
           tag_name: v${{ steps.package-version.outputs.current-version}}
           release_name: v${{ steps.package-version.outputs.current-version}}
           body: |
-            ##Changes v${{ steps.package-version.outputs.current-version}}:
+            ## Changes v${{ steps.package-version.outputs.current-version}}:
             https://github.com/armadacore/fnt/compare/${{steps.get-latest-tag.outputs.tag}}...v${{ steps.package-version.outputs.current-version}}
           draft: false
           prerelease: false
