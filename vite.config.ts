@@ -7,8 +7,8 @@ export default defineConfig({
 	build: {
 		copyPublicDir: false,
 		lib: {
-			entry: resolve(__dirname, 'src/index.ts'),
-			fileName: 'index',
+			entry: resolve(__dirname, 'src/main.ts'),
+			fileName: 'main',
 			formats: ['es'],
 		},
 	},
