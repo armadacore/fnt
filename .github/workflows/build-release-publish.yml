@@ -49,6 +49,11 @@ jobs:
         with:
           node-version: 22
 
+      - name: Get latest tag
+        uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+        if: ${{ steps.release-label.outputs.level != null }}
+
       - name: Get version from package.json
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
@@ -73,28 +78,29 @@ jobs:
           tag_name: v${{ steps.package-version.outputs.current-version}}
           release_name: v${{ steps.package-version.outputs.current-version}}
           body: |
-            v${{ steps.package-version.outputs.current-version}}
+            ##Changes v${{ steps.package-version.outputs.current-version}}:
+            https://github.com/armadacore/fnt/compare/${{steps.get-latest-tag.outputs.tag}}...v${{ steps.package-version.outputs.current-version}}
           draft: false
           prerelease: false
 
-  publish:
-    needs: release
-    runs-on: ubuntu-latest
-    if: ${{ success() }}
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22
-
-      - name: Publish to npm
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-          npm install # Optional, falls nötig
-          npm publish
+#  publish:
+#    needs: release
+#    runs-on: ubuntu-latest
+#    if: ${{ success() }}
+#
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Set up Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 22
+#
+#      - name: Publish to npm
+#        env:
+#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+#        run: |
+#          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+#          npm install # Optional, falls nötig
+#          npm publish
