@@ -13,3 +13,4 @@ export type Err<E> = {
     error: E;
 } & ResultUnZip<never, E>;
 export type Result<O, E> = Ok<O> | Err<E>;
+//# sourceMappingURL=result.d.ts.map
