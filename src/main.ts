@@ -1,4 +1,1 @@
-
-export function foobar(name: string) {
-  return `Hello ${name}`;
-}
+export * from './result';
