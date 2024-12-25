@@ -1,12 +1,13 @@
 name: Build, release and publish
 
 on:
-  push:
-    branches:
-      - master
+  pull_request:
+    types:
+      - closed
 
 jobs:
   build:
+    if: ${{ github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -35,10 +36,11 @@ jobs:
           git push origin master
 
 
+
   release:
     needs: build
+    if: ${{ github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master' && success() }}
     runs-on: ubuntu-latest
-    if: ${{ success() }}
 
     steps:
       - name: Checkout code
@@ -82,24 +84,24 @@ jobs:
           draft: false
           prerelease: false
 
-#  publish:
-#    needs: release
-#    runs-on: ubuntu-latest
-#    if: ${{ success() }}
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Node.js
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: 22
-#
-#      - name: Publish to npm
-#        env:
-#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-#        run: |
-#          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-#          npm install # Optional, falls nötig
-#          npm publish
+  publish:
+    needs: release
+    if: ${{ github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master' && success() }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Publish to npm
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+          npm install # Optional, falls nötig
+          npm publish
