@@ -10,7 +10,7 @@ contains_issue_id() {
 }
 
 # Extract the issue ID using grep with a named capture group
-ISSUE_ID=$(echo "$BRANCH_NAME" | grep -o -E '^(hotfix|release|feature)/tf-([0-9]+)-' | sed -E 's/.*tf-([0-9]+)-.*/\1/')
+ISSUE_ID=$(echo "$BRANCH_NAME" | grep -o -E '^(hotfix|release|feature)/tf-([0-9]+)-' | sed -E 's/.*fnt-([0-9]+)-.*/\1/')
 
 # If an issue ID was found and the commit message does not already contain an issue ID, append it
 if [ -n "$ISSUE_ID" ] && ! contains_issue_id; then
