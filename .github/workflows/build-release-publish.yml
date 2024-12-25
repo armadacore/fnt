@@ -1,4 +1,4 @@
-name: Build and Release package
+name: Build, release and publish
 
 on:
   push:
