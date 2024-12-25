@@ -34,9 +34,11 @@ jobs:
           git commit -m "Build files from latest commit" || echo "No changes to commit"
           git push origin master
 
+
   release:
     needs: build
     runs-on: ubuntu-latest
+    if: ${{ success() }}
 
     steps:
       - name: Checkout code
@@ -74,3 +76,25 @@ jobs:
             v${{ steps.package-version.outputs.current-version}}
           draft: false
           prerelease: false
+
+  publish:
+    needs: release
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Publish to npm
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+          npm install # Optional, falls nötig
+          npm publish
