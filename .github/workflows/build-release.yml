@@ -59,20 +59,18 @@ jobs:
       - name: Create Git Tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ steps.package-version.outputs.current-version}}
         run: |
-          git tag -a v${VERSION} -m "Release v${VERSION}"
-          git push origin v${VERSION}
+          git tag -a v${{ steps.package-version.outputs.current-version}} -m "Release v${{ steps.package-version.outputs.current-version}}"
+          git push origin v${{ steps.package-version.outputs.current-version}}
 
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ steps.package-version.outputs.current-version}}
         uses: actions/create-release@v1
         with:
-          tag_name: v${{ VERSION }}
-          release_name: v${{ env.VERSION }}
+          tag_name: v${{ steps.package-version.outputs.current-version}}
+          release_name: v${{ steps.package-version.outputs.current-version}}
           body: |
-            v${{ env.VERSION }}
+            v${{ steps.package-version.outputs.current-version}}
           draft: false
           prerelease: false
