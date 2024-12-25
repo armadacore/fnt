@@ -15,7 +15,7 @@ git clone https://github.com/armadacore/fnt
 Import the required functions directly into your TypeScript files:
 
 ```typescript
-import { ok, err } from './@armadacore/fnt';
+import { ok, err } from '@armadacore/fnt';
 ```
 
 ---
