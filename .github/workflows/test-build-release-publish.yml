@@ -87,46 +87,46 @@ jobs:
         - name: Debug release
           run: |
             echo "release step"
-#      - name: Checkout code
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Node.js
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: 22
-#
-#      - name: Get latest tag
-#        uses: actions-ecosystem/action-get-latest-tag@v1
-#        id: get-latest-tag
-#
-#      - name: Get version from package.json
-#        id: package-version
-#        uses: martinbeentjes/npm-get-version-action@v1.3.1
-#
-#      - name: Configure Git
-#        run: |
-#          git config --global user.name "GitHub Actions Bot"
-#          git config --global user.email "actions@github.com"
-#
-#      - name: Create Git Tag
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        run: |
-#          git tag -a v${{ steps.package-version.outputs.current-version}} -m "Release v${{ steps.package-version.outputs.current-version}}"
-#          git push origin v${{ steps.package-version.outputs.current-version}}
-#
-#      - name: Create GitHub Release
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        uses: actions/create-release@v1
-#        with:
-#          tag_name: v${{ steps.package-version.outputs.current-version}}
-#          release_name: v${{ steps.package-version.outputs.current-version}}
-#          body: |
-#            ## Changes v${{ steps.package-version.outputs.current-version}}:
-#            https://github.com/armadacore/fnt/compare/${{steps.get-latest-tag.outputs.tag}}...v${{ steps.package-version.outputs.current-version}}
-#          draft: false
-#          prerelease: false
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Get latest tag
+        uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+
+      - name: Get version from package.json
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+
+      - name: Create Git Tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git tag -a v${{ steps.package-version.outputs.current-version}} -m "Release v${{ steps.package-version.outputs.current-version}}"
+          git push origin v${{ steps.package-version.outputs.current-version}}
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/create-release@v1
+        with:
+          tag_name: v${{ steps.package-version.outputs.current-version}}
+          release_name: v${{ steps.package-version.outputs.current-version}}
+          body: |
+            ## Changes v${{ steps.package-version.outputs.current-version}}:
+            https://github.com/armadacore/fnt/compare/${{steps.get-latest-tag.outputs.tag}}...v${{ steps.package-version.outputs.current-version}}
+          draft: false
+          prerelease: false
 
   publish:
     needs: release
@@ -137,18 +137,18 @@ jobs:
       - name: Debug publish
         run: |
           echo "publish step"
-#      - name: Checkout code
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Node.js
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: 22
-#
-#      - name: Publish to npm
-#        env:
-#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-#        run: |
-#          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-#          npm install # Optional, falls nötig
-#          npm publish
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Publish to npm
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+          npm install # Optional, falls nötig
+          npm publish
