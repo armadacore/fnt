@@ -1,4 +1,4 @@
-import { Err } from '../models/result.ts';
+import { Err } from '~/result/models/result';
 
 /**
  * Creates an Err object representing a failure result.
@@ -18,8 +18,6 @@ export function err<E>(error: NonNullable<E>): Err<E> {
 			throw new Error('Called `Result.unwrap()` on an `Err` value');
 		},
 		unwrapErr(): E {
-			if (this.isOk) throw new Error('Called `Result.unwrap_err()` on an `Ok` value');
-
 			return this.error;
 		},
 	};
