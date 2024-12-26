@@ -1,14 +1,14 @@
 import { expect, test } from 'vitest';
 import { ok } from '~/result';
 
-test('should create a valid Ok result object with truthy value', () => {
+test('should create a valid Ok result object with truthy value for isOk property', () => {
 	const result = ok(42);
-	expect(result.isOk).toBe(true);
+	expect(result.isOk).toBeTruthy();
 });
 
-test('should create a valid Ok result object with the provided value', () => {
+test('should create a valid Ok result object with falsy value for isErr property', () => {
 	const result = ok(42);
-	expect(result.value).toBe(42);
+	expect(result.isErr).toBeFalsy();
 });
 
 test('should return the value when `expect` is called on an Ok result', () => {

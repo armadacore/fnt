@@ -9,13 +9,13 @@ import { Ok } from '~/result/models/result';
 export function ok<O>(value: NonNullable<O>): Ok<O> {
 	return {
 		__brand: 'Result.Ok',
-		value,
 		isOk: true,
+		isErr: false,
 		expect(_message: string) {
-			return this.value;
+			return value;
 		},
 		unwrap() {
-			return this.value;
+			return value;
 		},
 		unwrapErr() {
 			throw new Error('Called `Result.unwrap_err()` on an `Ok` value');

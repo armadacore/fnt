@@ -1,11 +1,18 @@
 import { expect, test } from 'vitest';
 import { err } from '~/result';
 
-test('should create an Err object with isOk is falsy', () => {
+test('should create an Err object with isOk as falsy', () => {
 	const errorValue = 'Some error';
 	const result = err(errorValue);
 
-	expect(result.isOk).toBe(false);
+	expect(result.isOk).toBeFalsy();
+});
+
+test('should create an Err object with isErr as truthy', () => {
+	const errorValue = 'Some error';
+	const result = err(errorValue);
+
+	expect(result.isErr).toBeTruthy();
 });
 
 test('should create an Err object with the correct error property', () => {
