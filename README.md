@@ -49,6 +49,34 @@ if (result.isOk) {
 
 In this example, the result is returned as either `ok` (successful) or `err` (error). This allows you to explicitly distinguish between success and error cases and handle them safely.
 
+## Example: Option Pattern
+
+The `Option` pattern is another useful concept inspired by **[Rust](https://doc.rust-lang.org/std/option/)**. It allows you to handle values that might be "missing" in an explicit and safe way, without relying on `null` or `undefined`.
+
+Here’s a simple example of how the `Option` pattern can be used:
+
+```typescript
+import { Option, some, none } from '@armadacore/fnt';
+
+// A function demonstrating the Option Pattern
+function findElement<T>(array: T[], predicate: (item: T) => boolean): Option<T> {
+    const found = array.find(predicate);
+    return found !== undefined ? some(found) : none();
+}
+
+// Using the Option Pattern
+const array = [1, 2, 3, 4, 5];
+const result = findElement(array, (x) => x > 3);
+
+if (result.isSome) {
+    console.log("Found value:", result.unwrap()); // Output: Found value: 4
+} else {
+    console.log("No value found."); // If no value matches the predicate
+}
+```
+
+In this example, the function returns either `some` (if a value is found) or `none` (if no value matches the condition). The `Option` pattern provides a type-safe and explicit way to handle optional values in your code, avoiding potential `null`-related errors.
+
 ---
 
 ## License
