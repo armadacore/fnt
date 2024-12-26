@@ -41,37 +41,37 @@ jobs:
       - name: Debug build
         run: |
           echo "build step"
-#      - name: Checkout code
-#        uses: actions/checkout@v3
-#
-#      - name: Set up Node.js
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: 22
-#
-#      - name: Install dependencies
-#        run: npm install
-#
-#      - name: Build the project
-#        run: npm run build
-#
-#      - name: Commit built files
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        run: |
-#          git config --global user.name "GitHub Actions Bot"
-#          git config --global user.email "actions@github.com"
-#          git add dist
-#          git commit -m "Build files from latest commit" || echo "No changes to commit"
-#          git push origin master
-#
-#      - name: Upload Coverage to Codecov
-#        uses: codecov/codecov-action@v3
-#        with:
-#          token: ${{ secrets.CODECOV_TOKEN }}
-#          files: ./.tests/coverage/lcov.info
-#          flags: unittests
-#          fail_ci_if_error: true
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Commit built files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add dist
+          git commit -m "Build files from latest commit" || echo "No changes to commit"
+          git push origin master
+
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./.tests/coverage/lcov.info
+          flags: unittests
+          fail_ci_if_error: true
 
   release:
     needs: build
