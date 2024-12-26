@@ -11,6 +11,7 @@ export function err<E>(error: NonNullable<E>): Err<E> {
 		__brand: 'Result.Err',
 		error,
 		isOk: false,
+		isErr: true,
 		expect(message: string) {
 			throw new Error(message);
 		},

@@ -1,30 +1,26 @@
 /**
- * A generic type that represents the result of an operation that can either
- * succeed with an output value or fail with an error value.
+ * Represents a wrapper object for handling results of operations,
+ * supporting successful outcomes (`isOk`) and error outcomes (`isErr`).
  *
- * @template O - The type of the successful output value.
- * @template E - The type of the error value in case of failure.
+ * @template O The type of the successful result.
+ * @template E The type of the error result.
  *
- * @property {boolean} isOk - A boolean flag indicating whether the result is successful (`true`) or an error (`false`).
+ * @property {boolean} isOk Indicates if the result is a success.
+ * @property {boolean} isErr Indicates if the result is an error.
  *
- * @method expect
- * This method is used to unwrap the result when it is in a successful state.
- * Throws an error with the provided message if the result is not successful.
- * @param {string} message - The error message to be thrown if the result is a failure.
- * @returns {O} - The successful value if the result is in a successful state.
+ * @method expect Throws an error with the provided message if the result is an error. Otherwise, returns the successful result.
+ * @param {string} message The message to include in the error if the result is an error.
+ * @returns {O} The successful result.
  *
- * @method unwrap
- * Unwraps the result value. Assumes the result is successful and throws an error
- * if it is not.
- * @returns {O} - The successful value if the result is in a successful state.
+ * @method unwrap Returns the successful result if `isOk` is true. If `isErr` is true, it throws an error.
+ * @returns {O} The successful result.
  *
- * @method unwrapErr
- * Unwraps the error value. Assumes the result is a failure and throws an error
- * if it is not.
- * @returns {E} - The error value if the result is in a failure state.
+ * @method unwrapErr Returns the error result if `isErr` is true. If `isOk` is true, it throws an error.
+ * @returns {E} The error result.
  */
 export type ResultWrapper<O, E> = {
 	readonly isOk: boolean;
+	readonly isErr: boolean;
 	expect(message: string): O;
 	unwrap(): O;
 	unwrapErr(): E;
@@ -37,11 +33,10 @@ export type ResultWrapper<O, E> = {
  * @template O The type of the successful result's value.
  *
  * @property {string} __brand A unique brand identifier for type safety, indicating a successful result (`'Result.Ok'`).
- * @property {O} value The value encapsulated within the successful result.
  *
  * @extends {ResultWrapper<O, never>}
  */
-export type Ok<O> = { __brand: 'Result.Ok'; value: O } & ResultWrapper<O, never>;
+export type Ok<O> = { __brand: 'Result.Ok' } & ResultWrapper<O, never>;
 
 /**
  * Represents an error state in the Result pattern. The `Err` type is used to specify
@@ -55,7 +50,7 @@ export type Ok<O> = { __brand: 'Result.Ok'; value: O } & ResultWrapper<O, never>
  *
  * @template E The type of the encapsulated error.
  */
-export type Err<E> = { __brand: 'Result.Err'; error: E } & ResultWrapper<never, E>;
+export type Err<E> = { __brand: 'Result.Err'; readonly error: E } & ResultWrapper<never, E>;
 
 /**
  * Represents a Result type that can be either a successful result (`Ok`)
