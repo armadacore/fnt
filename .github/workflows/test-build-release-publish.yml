@@ -32,6 +32,14 @@ jobs:
       - name: Run tests
         run: npm run test:coverage
 
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./.tests/coverage/lcov.info
+          flags: unittests
+          fail_ci_if_error: true
+
   build:
     needs: test
     if: ${{ success() }}
@@ -64,14 +72,6 @@ jobs:
           git add dist
           git commit -m "Build files from latest commit" || echo "No changes to commit"
           git push origin master
-
-      - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./.tests/coverage/lcov.info
-          flags: unittests
-          fail_ci_if_error: true
 
   release:
     needs: build
