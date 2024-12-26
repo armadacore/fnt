@@ -1,0 +1,12 @@
+coverage:
+  status:
+    project:
+      default:
+        paths:
+          - "src/"
+        threshold: 1%
+
+comment:
+  layout: "reach,diff,flags,tree"
+  behavior: default
+  require_changes: no
