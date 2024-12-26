@@ -1,10 +1,9 @@
-name: Run Tests and Upload Coverage
+name: Run Tests
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
-      - develop
+      - '**'
 
 jobs:
   test:
@@ -30,11 +29,3 @@ jobs:
 
       - name: Run tests
         run: npm run test:coverage
-
-      - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./.tests/coverage/lcov.info
-          flags: unittests
-          fail_ci_if_error: true
