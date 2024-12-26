@@ -1,6 +1,10 @@
 name: Test, build, release and publish
 
 on:
+  push:
+    branches:
+      - master
+
   pull_request:
     branches:
       - master
@@ -42,7 +46,7 @@ jobs:
 
   build:
     needs: test
-    if: ${{ success() }}
+    if: ${{ github.event.pull_request.merged == true && success() }}
     runs-on: ubuntu-latest
 
     steps:
@@ -75,7 +79,7 @@ jobs:
 
   release:
     needs: build
-    if: ${{ success() }}
+    if: ${{ github.event.pull_request.merged == true && success() }}
     runs-on: ubuntu-latest
 
     steps:
@@ -125,7 +129,7 @@ jobs:
 
   publish:
     needs: release
-    if: ${{ success() }}
+    if: ${{ github.event.pull_request.merged == true && success() }}
     runs-on: ubuntu-latest
 
     steps:
