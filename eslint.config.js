@@ -39,11 +39,11 @@ export default [
 			],
 			"@typescript-eslint/naming-convention": [
 				"error",
-				{selector: "default", format: ["camelCase"], filter: {regex: ('__brand'), match: false}},
+				{selector: "default", leadingUnderscore: "allowSingleOrDouble", format: ["camelCase"], filter: {regex: ('__brand'), match: false}},
 				{selector: "typeLike", format: ["PascalCase"]},
-				{selector: "variable", leadingUnderscore: "allowSingleOrDouble", format: ["camelCase", "PascalCase", "UPPER_CASE"]},
-				{selector: "variable", types: ["boolean"], format: ["PascalCase"], prefix: ["is", "should", "has", "can", "did", "will"]},
-				{selector: "variable", modifiers: ["const"], format: ["camelCase", "UPPER_CASE"]},
+				{selector: "variable", types: ["boolean"], leadingUnderscore: "allowSingleOrDouble", format: ["PascalCase"], prefix: ["is", "should", "has", "can", "did", "will"]},
+				{selector: "variable", leadingUnderscore: "allowSingleOrDouble", format: ["camelCase"]},
+				{selector: "variable", modifiers: ["const"], leadingUnderscore: "allowSingleOrDouble", format: ["camelCase", "UPPER_CASE"]},
 				{selector: "function", leadingUnderscore: "allowSingleOrDouble", format: ["camelCase", "PascalCase"]},
 			],
 		}
