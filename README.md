@@ -1,3 +1,10 @@
+![GitHub package.json version](https://img.shields.io/github/package-json/v/armadacore/fnt)
+![GitHub License](https://img.shields.io/github/license/armadacore/fnt)
+[![codecov](https://codecov.io/gh/armadacore/fnt/graph/badge.svg?token=RKG5TLD6LJ)](https://codecov.io/gh/armadacore/fnt)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/armadacore/fnt/latest)
+![GitHub repo size](https://img.shields.io/github/repo-size/armadacore/fnt)
+
+
 # fnt - Functional TypeScript
 
 **fnt** (Functional TypeScript) is a collection of utility functions designed to make your code more robust and safer. The project is built with TypeScript and provides tools to effectively apply functional programming concepts in TypeScript.
