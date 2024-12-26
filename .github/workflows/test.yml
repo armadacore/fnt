@@ -39,5 +39,5 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./test/coverage/lcov.info
+          files: ./.tests/coverage/lcov.info
           flags: unittests
