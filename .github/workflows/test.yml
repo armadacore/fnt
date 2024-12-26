@@ -8,6 +8,8 @@ on:
     branches:
       - master
       - develop
+    types:
+      - opened
 
 jobs:
   test:
@@ -33,3 +35,11 @@ jobs:
 
       - name: Run tests
         run: npm run test:coverage
+
+      - name: Upload Coverage to Codecov
+        if: ${{ github.event_name == 'pull_request' && github.event.pull_request.state == 'open' }}
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          flags: unittests
