@@ -4,19 +4,17 @@ function n(r) {
     value: r,
     isOk: !0,
     expect(e) {
-      if (this.isOk) return this.value;
-      throw new Error(e);
+      return this.value;
     },
     unwrap() {
-      if (this.isOk) return this.value;
-      throw new Error("Called `Result.unwrap()` on an `Err` value");
+      return this.value;
     },
     unwrapErr() {
       throw new Error("Called `Result.unwrap_err()` on an `Ok` value");
     }
   };
 }
-function t(r) {
+function u(r) {
   return {
     __brand: "Result.Err",
     error: r,
@@ -28,12 +26,11 @@ function t(r) {
       throw new Error("Called `Result.unwrap()` on an `Err` value");
     },
     unwrapErr() {
-      if (this.isOk) throw new Error("Called `Result.unwrap_err()` on an `Ok` value");
       return this.error;
     }
   };
 }
 export {
-  t as err,
+  u as err,
   n as ok
 };
