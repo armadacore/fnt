@@ -1,11 +1,6 @@
 name: Test, build, release and publish
 
 on:
-  push:
-    branches:
-      - master
-      - develop
-
   pull_request:
     branches:
       - master
@@ -46,7 +41,7 @@ jobs:
 
   build:
     needs: test
-    if: ${{ github.event.pull_request.merged == true && success() }}
+    if: ${{ success() }}
     runs-on: ubuntu-latest
 
     steps:
@@ -68,6 +63,7 @@ jobs:
         run: npm run build
 
       - name: Commit built files
+        if: ${{ github.ref == 'refs/heads/master' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -79,7 +75,7 @@ jobs:
 
   release:
     needs: build
-    if: ${{ github.event.pull_request.merged == true && success() }}
+    if: ${{ github.ref == 'refs/heads/master' && success() }}
     runs-on: ubuntu-latest
 
     steps:
@@ -129,7 +125,7 @@ jobs:
 
   publish:
     needs: release
-    if: ${{ github.event.pull_request.merged == true && success() }}
+    if: ${{ github.ref == 'refs/heads/master' && success() }}
     runs-on: ubuntu-latest
 
     steps:
