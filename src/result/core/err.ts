@@ -1,5 +1,11 @@
-import { Err } from '../models/result.ts';
+import { Err } from '~/result/models/result';
 
+/**
+ * Creates an Err object representing a failure result.
+ *
+ * @param {NonNullable<E>} error - The error object encapsulated in the Err.
+ * @return {Err<E>} An object representing a Result.Err, containing the error.
+ */
 export function err<E>(error: NonNullable<E>): Err<E> {
 	return {
 		__brand: 'Result.Err',
@@ -12,8 +18,6 @@ export function err<E>(error: NonNullable<E>): Err<E> {
 			throw new Error('Called `Result.unwrap()` on an `Err` value');
 		},
 		unwrapErr(): E {
-			if (this.isOk) throw new Error('Called `Result.unwrap_err()` on an `Ok` value');
-
 			return this.error;
 		},
 	};

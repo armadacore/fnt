@@ -6,11 +6,11 @@ BRANCH_NAME=$(git symbolic-ref --short HEAD)
 
 # Function to check if the commit message already contains an issue ID
 contains_issue_id() {
-  grep -Eq '^#tf-[0-9]+' "$COMMIT_MSG_FILE"
+  grep -Eq '^#fnt-[0-9]+' "$COMMIT_MSG_FILE"
 }
 
 # Extract the issue ID using grep with a named capture group
-ISSUE_ID=$(echo "$BRANCH_NAME" | grep -o -E '^(hotfix|release|feature)/tf-([0-9]+)-' | sed -E 's/.*fnt-([0-9]+)-.*/\1/')
+ISSUE_ID=$(echo "$BRANCH_NAME" | grep -o -E '^(hotfix|release|feature)/fnt-([0-9]+)-' | sed -E 's/.*fnt-([0-9]+)-.*/\1/')
 
 # If an issue ID was found and the commit message does not already contain an issue ID, append it
 if [ -n "$ISSUE_ID" ] && ! contains_issue_id; then
