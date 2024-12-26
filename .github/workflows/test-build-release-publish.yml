@@ -63,6 +63,7 @@ jobs:
         run: npm run build
 
       - name: Commit built files
+        if: ${{ github.ref == 'refs/heads/master' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -74,7 +75,7 @@ jobs:
 
   release:
     needs: build
-    if: ${{ success() }}
+    if: ${{ github.ref == 'refs/heads/master' && success() }}
     runs-on: ubuntu-latest
 
     steps:
@@ -124,7 +125,7 @@ jobs:
 
   publish:
     needs: release
-    if: ${{ success() }}
+    if: ${{ github.ref == 'refs/heads/master' && success() }}
     runs-on: ubuntu-latest
 
     steps:
