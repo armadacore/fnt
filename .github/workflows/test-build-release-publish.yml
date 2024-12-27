@@ -1,15 +1,11 @@
 name: Test, build, release and publish
 
 on:
-  push:
-    branches:
-      - master
-      - develop
-
   pull_request:
     branches:
       - master
-      - develop
+    types:
+      - closed
 
 jobs:
   test:
@@ -36,14 +32,6 @@ jobs:
       - name: Run tests
         run: npm run test:coverage
 
-      - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./.tests/coverage/lcov.info
-          flags: unittests
-          fail_ci_if_error: true
-
   build:
     needs: test
     if: ${{ success() }}
@@ -68,7 +56,6 @@ jobs:
         run: npm run build
 
       - name: Commit built files
-        if: ${{ github.ref == 'refs/heads/master' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -80,13 +67,10 @@ jobs:
 
   release:
     needs: build
-    if: ${{ github.ref == 'refs/heads/master' && success() }}
+    if: ${{ success() }}
     runs-on: ubuntu-latest
 
     steps:
-        - name: Debug release
-          run: |
-            echo "release step"
         - name: Checkout code
           uses: actions/checkout@v3
 
@@ -130,13 +114,10 @@ jobs:
 
   publish:
     needs: release
-    if: ${{ github.ref == 'refs/heads/master' && success() }}
+    if: ${{ success() }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug publish
-        run: |
-          echo "publish step"
       - name: Checkout code
         uses: actions/checkout@v3
 
