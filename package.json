@@ -1,6 +1,6 @@
 {
 	"name": "@armadacore/fnt",
-	"version": "0.4.0",
+	"version": "0.4.1",
 	"description": "A collection of utility functions to make your TypeScript code more robust and safer.",
 	"keywords": [
 		"typescript",
