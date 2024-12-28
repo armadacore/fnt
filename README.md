@@ -1,7 +1,6 @@
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/armadacore/fnt)
 ![GitHub License](https://img.shields.io/github/license/armadacore/fnt)
 [![codecov](https://codecov.io/gh/armadacore/fnt/graph/badge.svg?token=RKG5TLD6LJ)](https://codecov.io/gh/armadacore/fnt)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/armadacore/fnt/latest)
 ![GitHub repo size](https://img.shields.io/github/repo-size/armadacore/fnt)
 
 
