@@ -50,9 +50,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug build
-        run: |
-          echo "build step"
       - name: Checkout code
         uses: actions/checkout@v3
 
