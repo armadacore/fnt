@@ -66,4 +66,3 @@ export type Err<E> = {
  * @template E The type of the error in a failure result (`Err`).
  */
 export type Result<O, E> = Ok<O> | Err<E>;
-//# sourceMappingURL=result.d.ts.map

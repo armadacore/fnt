@@ -8,4 +8,3 @@ import { Some } from '..';
  * @return {Some<O>} An object representing the `Some` variant, containing the provided value.
  */
 export declare function some<O>(value: NonNullable<O>): Some<O>;
-//# sourceMappingURL=some.d.ts.map

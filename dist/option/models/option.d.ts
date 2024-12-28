@@ -19,11 +19,11 @@
  *                is guaranteed and it is safe to access directly.
  * @returns {O} The contained value of the wrapper.
  */
-export type OptionWrapper<O> = {
+export type OptionWrapper<S> = {
     readonly isSome: boolean;
     readonly isNone: boolean;
-    expect(message: string): O;
-    unwrap(): O;
+    expect(message: string): S;
+    unwrap(): S;
 };
 /**
  * Represents a type `Some` which is branded to indicate a successful and present value
@@ -39,9 +39,9 @@ export type OptionWrapper<O> = {
  *
  * @template O The underlying type of the contained value.
  */
-export type Some<O> = {
+export type Some<S> = {
     __brand: 'Option.Some';
-} & OptionWrapper<O>;
+} & OptionWrapper<S>;
 /**
  * Represents a type that signifies the absence of a value within the `Option` type system.
  * `None` is primarily used to indicate that a computation or operation did not produce a value.
@@ -68,5 +68,4 @@ export type None = {
  *
  * @template O Specifies the type of the value contained within the `Some` variant.
  */
-export type Option<O> = Some<O> | None;
-//# sourceMappingURL=option.d.ts.map
+export type Option<S> = Some<S> | None;

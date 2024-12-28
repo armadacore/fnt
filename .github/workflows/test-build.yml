@@ -50,9 +50,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug build
-        run: |
-          echo "build step"
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -67,3 +64,13 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      - name: Commit built files
+        if: ${{ github.ref == 'refs/heads/develop' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add dist
+          git commit -m "Build files from latest commit" || echo "No changes to commit"
+          git push origin develop

@@ -6,4 +6,3 @@ import { Ok } from '../models/result';
  * @return An `Ok` result object containing the provided value.
  */
 export declare function ok<O>(value: NonNullable<O>): Ok<O>;
-//# sourceMappingURL=ok.d.ts.map

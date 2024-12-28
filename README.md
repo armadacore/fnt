@@ -1,7 +1,6 @@
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/armadacore/fnt)
 ![GitHub License](https://img.shields.io/github/license/armadacore/fnt)
 [![codecov](https://codecov.io/gh/armadacore/fnt/graph/badge.svg?token=RKG5TLD6LJ)](https://codecov.io/gh/armadacore/fnt)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/armadacore/fnt/latest)
 ![GitHub repo size](https://img.shields.io/github/repo-size/armadacore/fnt)
 
 
@@ -83,6 +82,40 @@ if (result.isSome) {
 ```
 
 In this example, the function returns either `some` (if a value is found) or `none` (if no value matches the condition). The `Option` pattern provides a type-safe and explicit way to handle optional values in your code, avoiding potential `null`-related errors.
+
+
+## Example: Match Pattern
+
+The `match` pattern offers a concise, pattern-matching-style handling of various options or results, inspired by the `match` feature from **[Rust](https://doc.rust-lang.org/rust-by-example/flow_control/match.html)**. This allows for clear, exhaustive, and type-safe handling of cases.
+
+Here’s an example using `match` with a `Result`:
+
+```typescript
+import { match, Result, ok, err } from '@armadacore/fnt';
+
+// A function with Result Pattern
+function fetchUserData(userId: number): Result<string, string> {
+    if (userId > 0) return ok(`User with ID ${userId}`);
+    return err("Invalid user ID");
+}
+
+// Using the match pattern to handle Result
+const userResult = fetchUserData(1);
+
+const message = match(userResult, {
+    ok: (data) => `Success: ${data}`,
+    err: (error) => `Error: ${error}`,
+});
+
+console.log(message); // Output: Success: User with ID 1
+```
+
+In this example, we use `match` to differentiate between success (`ok`) and error (`err`) cases. It's a powerful tool for handling the exhaustive nature of cases in TypeScript.
+
+### Important Note on Overloading and TypeScript Types
+Currently, in TypeScript, when overloading `match` patterns with multiple types, some issues may arise, particularly with the second parameter `branch`. The TypeScript type resolution may not accurately enforce exhaustive cases in some scenarios. This is a known limitation and requires care when using `match` with complex type combinations.
+
+If you encounter issues, consider checking your implementation for type safety or using explicit case handling as a workaround.
 
 ---
 

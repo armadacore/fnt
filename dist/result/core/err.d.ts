@@ -6,4 +6,3 @@ import { Err } from '../models/result';
  * @return {Err<E>} An object representing a Result.Err, containing the error.
  */
 export declare function err<E>(error: NonNullable<E>): Err<E>;
-//# sourceMappingURL=err.d.ts.map
