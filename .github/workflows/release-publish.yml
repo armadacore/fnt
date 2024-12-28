@@ -1,4 +1,4 @@
-name: Test, build, release and publish
+name: Release and publish
 
 on:
   pull_request:
@@ -8,66 +8,7 @@ on:
       - closed
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Install Node.js and npm
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Install dependencies
-        run: npm ci --force
-
-      - name: Run type check
-        run: npm run type:check
-
-      - name: Run lint ts
-        run: npm run lint:ts
-
-      - name: Run tests
-        run: npm run test:coverage
-
-  build:
-    needs: test
-    if: ${{ success() }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Debug build
-        run: |
-          echo "build step"
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build the project
-        run: npm run build
-
-      - name: Commit built files
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "actions@github.com"
-          git add dist
-          git commit -m "Build files from latest commit" || echo "No changes to commit"
-          git push origin master
-
   release:
-    needs: build
-    if: ${{ success() }}
     runs-on: ubuntu-latest
 
     steps:

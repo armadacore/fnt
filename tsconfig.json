@@ -21,7 +21,7 @@
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"declaration": true,
-		"declarationMap": true,
+		"declarationMap": false,
 		"paths": {
 			"~/*": ["./src/*"]
 		},
