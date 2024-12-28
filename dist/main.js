@@ -1,9 +1,9 @@
-function n(r) {
+function o(r) {
   return {
     __brand: "Result.Ok",
     isOk: !0,
     isErr: !1,
-    expect(e) {
+    expect(n) {
       return r;
     },
     unwrap() {
@@ -20,8 +20,8 @@ function t(r) {
     error: r,
     isOk: !1,
     isErr: !0,
-    expect(e) {
-      throw new Error(e);
+    expect(n) {
+      throw new Error(n);
     },
     unwrap() {
       throw new Error("Called `Result.unwrap()` on an `Err` value");
@@ -31,12 +31,12 @@ function t(r) {
     }
   };
 }
-function o(r) {
+function u(r) {
   return {
     __brand: "Option.Some",
     isSome: !0,
     isNone: !1,
-    expect(e) {
+    expect(n) {
       return r;
     },
     unwrap() {
@@ -44,7 +44,7 @@ function o(r) {
     }
   };
 }
-function u() {
+function i() {
   return {
     __brand: "Option.None",
     isSome: !1,
@@ -57,9 +57,25 @@ function u() {
     }
   };
 }
+function s(r, n) {
+  if (r.__brand === "Result.Ok" || r.__brand === "Result.Err") {
+    const e = n;
+    if (r.isOk) return e.ok(r.unwrap());
+    if (r.isErr) return e.err(r.unwrapErr());
+    throw new Error("Result is neither Ok nor Err");
+  }
+  if (r.__brand === "Option.Some" || r.__brand === "Option.None") {
+    const e = n;
+    if (r.isSome) return e.some(r.unwrap());
+    if (r.isNone) return e.none();
+    throw new Error("Option is neither Some nor None");
+  }
+  throw new Error("Unknown match type");
+}
 export {
   t as err,
-  u as none,
-  n as ok,
-  o as some
+  s as match,
+  i as none,
+  o as ok,
+  u as some
 };
